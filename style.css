@@ -1,0 +1,1026 @@
+:root {
+  --bg: #f8f4ee;
+  --paper: #fffdf9;
+  --text: #3e3935;
+  --muted: #8a8179;
+  --line: #ded4c9;
+  --accent: #d9a29d;
+  --accent-soft: #f2dfdb;
+  --shadow: 0 18px 45px rgba(62, 57, 53, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 22px;
+  position: relative;
+}
+
+.section-inner {
+  width: min(1040px, 100%);
+}
+
+.section-inner.narrow {
+  width: min(760px, 100%);
+}
+
+h1,
+h2 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  margin: 18px 0;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  margin: 8px 0 40px;
+}
+
+p {
+  margin: 0 0 18px;
+}
+
+.section-no {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+}
+
+.section-sub {
+  color: var(--muted);
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+
+
+/* =========================
+   開場
+========================= */
+
+.hero {
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(248, 244, 238, 0.6),
+      rgba(248, 244, 238, 0.86)
+    ),
+    radial-gradient(
+      circle at 30% 40%,
+      #ead4ce 0,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      #e7dfd2 0,
+      transparent 30%
+    );
+
+  transform: scale(1);
+
+  animation:
+    slowZoom 14s ease-in-out infinite alternate;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(820px, 100%);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.scroll-hint {
+  display: inline-block;
+  margin-top: 52px;
+  color: var(--text);
+  text-decoration: none;
+
+  animation:
+    float 1.8s ease-in-out infinite;
+}
+
+
+/* =========================
+   所有實際照片
+========================= */
+
+.real-photo {
+  width: 100%;
+  display: block;
+
+  object-fit: cover;
+
+  border-radius: 4px;
+
+  border:
+    1px solid #d6c8ba;
+
+  background: #eee6dc;
+}
+
+
+/* =========================
+   時間軸
+========================= */
+
+.timeline {
+  position: relative;
+  margin-top: 60px;
+}
+
+.timeline::before {
+  content: "";
+
+  position: absolute;
+
+  left: 17px;
+  top: 10px;
+  bottom: 10px;
+
+  width: 1px;
+
+  background: var(--line);
+}
+
+.timeline-item {
+  display: grid;
+
+  grid-template-columns:
+    36px
+    1fr
+    220px;
+
+  gap: 24px;
+
+  align-items: center;
+
+  padding: 28px 0;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  margin-left: 11px;
+
+  box-shadow:
+    0 0 0 6px var(--bg);
+
+  z-index: 1;
+}
+
+.timeline-label {
+  color: var(--accent);
+
+  font-size: 0.88rem;
+
+  letter-spacing: 0.06em;
+}
+
+.timeline-copy h3 {
+  margin: 6px 0 8px;
+
+  font-size: 1.2rem;
+}
+
+.timeline-copy p {
+  color: var(--muted);
+}
+
+.timeline-photo {
+  height: 150px;
+
+  border-radius: 10px;
+
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================
+   回憶相簿
+========================= */
+
+.album-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 36px;
+
+  margin-top: 54px;
+}
+
+/* 每一張翻卡的整體高度 */
+.memory-card {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  perspective: 1000px;
+
+  min-height: 430px;
+}
+
+/* 白色外框的實際高度 */
+.card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 430px;
+
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+  transform:
+    rotateY(180deg);
+}
+
+/* 正面與背面白色卡片 */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+
+  backface-visibility: hidden;
+
+  background: var(--paper);
+  padding: 18px;
+
+  box-shadow: var(--shadow);
+
+  border: 1px solid var(--line);
+}
+
+
+.card-front small {
+  display: block;
+
+  margin-top: 12px;
+
+  color: var(--muted);
+}
+
+/* 相簿照片高度 */
+.album-photo {
+  width: 100%;
+  height: 340px;
+
+  object-fit: cover;
+
+  display: block;
+
+  border-radius: 4px;
+}
+
+.card-back {
+  transform:
+    rotateY(180deg);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 32px;
+
+  font-family:
+    "Noto Serif TC",
+    serif;
+
+  font-size: 1.15rem;
+}
+
+.rotate-a {
+  transform:
+    rotate(-1.5deg);
+}
+
+.rotate-b {
+  transform:
+    rotate(1.2deg);
+}
+
+.rotate-c {
+  transform:
+    rotate(0.8deg);
+}
+
+.rotate-d {
+  transform:
+    rotate(-1deg);
+}
+
+
+/* =========================
+   我眼中的你
+========================= */
+
+.quality-cards {
+  display: grid;
+
+  gap: 18px;
+}
+
+.quality-card {
+  background:
+    var(--paper);
+
+  border:
+    1px solid var(--line);
+
+  padding:
+    26px 28px;
+
+  box-shadow:
+    var(--shadow);
+
+  display:
+    grid;
+
+  grid-template-columns:
+    50px 1fr;
+
+  gap:
+    20px;
+
+  align-items:
+    start;
+}
+
+.quality-card span {
+  color:
+    var(--accent);
+
+  font-size:
+    0.8rem;
+
+  letter-spacing:
+    0.15em;
+}
+
+.quality-card p {
+  margin:
+    0;
+
+  font-size:
+    1.08rem;
+}
+
+
+/* =========================
+   感謝段落
+========================= */
+
+.thanks-block {
+  padding:
+    34px 0;
+
+  border-bottom:
+    1px solid var(--line);
+}
+
+.thanks-title {
+  font-family:
+    "Noto Serif TC",
+    serif;
+
+  font-size:
+    1.4rem;
+
+  color:
+    var(--accent);
+
+  margin-bottom:
+    10px;
+}
+
+.featured-photo {
+  margin-top:
+    60px;
+}
+
+.featured-photo p {
+  color:
+    var(--muted);
+
+  font-size:
+    0.85rem;
+
+  margin-top:
+    12px;
+}
+
+.featured-real-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   信封
+========================= */
+
+.envelope-wrap {
+  text-align:
+    center;
+
+  padding:
+    40px 0;
+}
+
+.envelope {
+  width:
+    220px;
+
+  height:
+    140px;
+
+  margin:
+    0 auto 28px;
+
+  position:
+    relative;
+
+  background:
+    var(--paper);
+
+  border:
+    1px solid var(--line);
+
+  box-shadow:
+    var(--shadow);
+}
+
+.envelope::before,
+.envelope::after {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  bottom:
+    0;
+
+  width:
+    0;
+
+  height:
+    0;
+
+  border-style:
+    solid;
+}
+
+.envelope::before {
+  left:
+    0;
+
+  border-width:
+    70px 110px 0 0;
+
+  border-color:
+    transparent
+    var(--accent-soft)
+    transparent
+    transparent;
+}
+
+.envelope::after {
+  right:
+    0;
+
+  border-width:
+    70px 0 0 110px;
+
+  border-color:
+    transparent
+    transparent
+    transparent
+    var(--accent-soft);
+}
+
+.envelope-flap {
+  position:
+    absolute;
+
+  left:
+    0;
+
+  top:
+    0;
+
+  width:
+    0;
+
+  height:
+    0;
+
+  border-left:
+    110px solid transparent;
+
+  border-right:
+    110px solid transparent;
+
+  border-top:
+    78px solid #f1e5df;
+
+  transform-origin:
+    top;
+
+  transition:
+    0.6s;
+}
+
+.envelope-wrap.open
+.envelope-flap {
+  transform:
+    rotateX(180deg);
+}
+
+.heart {
+  position:
+    absolute;
+
+  z-index:
+    3;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  transform:
+    translate(-50%, -30%);
+
+  color:
+    var(--accent);
+
+  font-size:
+    1.7rem;
+}
+
+
+/* =========================
+   按鈕
+========================= */
+
+.primary-btn,
+.ghost-btn {
+  border:
+    1px solid var(--accent);
+
+  border-radius:
+    999px;
+
+  padding:
+    12px 24px;
+}
+
+.primary-btn {
+  background:
+    var(--accent);
+
+  color:
+    white;
+}
+
+.ghost-btn {
+  background:
+    transparent;
+
+  color:
+    var(--text);
+}
+
+
+/* =========================
+   信件
+========================= */
+
+.letter {
+  display:
+    none;
+
+  background:
+    var(--paper);
+
+  border:
+    1px solid var(--line);
+
+  padding:
+    42px;
+
+  box-shadow:
+    var(--shadow);
+
+  font-family:
+    "Noto Serif TC",
+    serif;
+}
+
+.letter.show {
+  display:
+    block;
+
+  animation:
+    fadeUp 0.8s both;
+}
+
+
+/* =========================
+   最後一句
+========================= */
+
+.ending-section {
+  min-height:
+    100vh;
+
+  text-align:
+    center;
+
+  overflow:
+    hidden;
+}
+
+.ending-card {
+  transition:
+    opacity 0.8s,
+    transform 0.8s;
+}
+
+.ending-card.hide {
+  opacity:
+    0;
+
+  transform:
+    translateY(-30px);
+
+  pointer-events:
+    none;
+}
+
+.final-message {
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
+
+  transition:
+    opacity 1s;
+
+  background:
+    var(--bg);
+
+  padding:
+    30px;
+}
+
+.final-message.show {
+  opacity:
+    1;
+
+  pointer-events:
+    auto;
+}
+
+.final-message p {
+  font-family:
+    "Noto Serif TC",
+    serif;
+
+  font-size:
+    clamp(2rem, 7vw, 4rem);
+
+  margin-bottom:
+    8px;
+}
+
+.final-message small {
+  font-size:
+    1rem;
+
+  color:
+    var(--muted);
+}
+
+.final-message span {
+  margin-top:
+    28px;
+
+  color:
+    var(--accent);
+
+  font-size:
+    1.6rem;
+}
+
+
+/* =========================
+   音樂按鈕
+========================= */
+
+.music-btn {
+  position:
+    fixed;
+
+  right:
+    18px;
+
+  top:
+    18px;
+
+  z-index:
+    10;
+
+  width:
+    42px;
+
+  height:
+    42px;
+
+  border-radius:
+    50%;
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255, 253, 249, 0.85);
+
+  color:
+    var(--text);
+
+  backdrop-filter:
+    blur(8px);
+}
+
+
+/* =========================
+   滑動進場動畫
+========================= */
+
+.reveal {
+  opacity:
+    0;
+
+  transform:
+    translateY(28px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity:
+    1;
+
+  transform:
+    translateY(0);
+}
+
+
+/* =========================
+   動畫
+========================= */
+
+@keyframes float {
+  50% {
+    transform:
+      translateY(8px);
+  }
+}
+
+@keyframes slowZoom {
+  to {
+    transform:
+      scale(1.08);
+  }
+}
+
+@keyframes fadeUp {
+
+  from {
+    opacity:
+      0;
+
+    transform:
+      translateY(25px);
+  }
+
+  to {
+    opacity:
+      1;
+
+    transform:
+      none;
+  }
+
+}
+
+/* =========================
+   音樂播放動畫
+========================= */
+
+.music-btn.playing {
+  animation: musicPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+
+/* =========================
+   手機版
+========================= */
+
+@media (max-width: 760px) {
+
+  .section {
+    padding: 78px 18px;
+  }
+
+  /* =========================
+     時間軸
+  ========================= */
+
+  .timeline-item {
+    grid-template-columns: 30px 1fr;
+  }
+
+  .timeline-item .timeline-photo {
+    grid-column: 2;
+    margin-top: 4px;
+    height: 220px;
+  }
+
+  .timeline::before {
+    left: 14px;
+  }
+
+  .timeline-dot {
+    margin-left: 8px;
+  }
+
+
+  /* =========================
+     回憶相簿
+  ========================= */
+
+  /* 手機版改成一列一張 */
+  .album-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-top: 54px;
+  }
+
+  /* 每一張翻卡的整體高度 */
+  .memory-card {
+    min-height: 460px;
+  }
+
+  /* 白色外框高度 */
+  .card-inner {
+    width: 100%;
+    height: 460px;
+    min-height: 460px;
+  }
+
+  /* 正面與背面都跟外框一樣高 */
+  .card-front,
+  .card-back {
+    height: 100%;
+  }
+
+  /* 相簿照片 */
+  .album-photo {
+    width: 100%;
+    height: 365px;
+    object-fit: cover;
+    display: block;
+  }
+
+
+  /* =========================
+     我眼中的你
+  ========================= */
+
+  .quality-card {
+    grid-template-columns: 40px 1fr;
+    padding: 22px;
+  }
+
+
+  /* =========================
+     主照片
+  ========================= */
+
+.featured-real-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+
+
+  /* =========================
+     信件
+  ========================= */
+
+  .letter {
+    padding: 28px 22px;
+  }
+
+}
